@@ -4,10 +4,10 @@ const app = require("./app");
 
 require("dotenv").config();
 
-const PORT = process.env.PORT || 3000;
-const uriDb = process.env.DB_HOST;
+const PORT = process.env.PORT || 3001;
+const MONGO_DB = process.env.MONGO_DB;
 
-const connection = mongoose.connect(uriDb);
+const connection = mongoose.connect(MONGO_DB);
 
 connection
   .then(() => {
