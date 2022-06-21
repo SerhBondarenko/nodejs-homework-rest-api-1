@@ -42,7 +42,7 @@ const remove = async (req, res, next) => {
     if (!contact) {
       return res.status(404).json({ message: "Not found" });
     }
-    res.json({ message: "Deleted", code: 200, data: { contact } });
+    res.json({ message: "Delete", code: 200, data: { contact } });
   } catch (error) {
     next(error);
   }
