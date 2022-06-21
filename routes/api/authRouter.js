@@ -1,13 +1,12 @@
 const express = require("express");
-const { auth } = require("../../middleware/authMiddleware");
+const { authMiddelware } = require("../../middleware/authMiddleware");
 const { upload } = require("../../middleware/multerMiddleware");
-const { jimpImageResizer } = require("../../middleware/jimpMiddleware");
-const validation = require("../../middleware/validationMiddleware");
-const { schema, subscriptionSchema } = require("../../service/schemas/user");
+const validationMiddleware = require("../../middleware/validationMiddleware");
+const { schema, subscriptionSchema } = require("../../service/schemas/userModel");
 const {
-  register,
-  login,
-  logout,
+  registrationController,
+  loginController,
+  logoutController,
   getCurrentUser,
   updateSubscription,
   updateAvatar,
@@ -15,21 +14,20 @@ const {
 
 const router = express.Router();
 
-router.post("/signup", validation(schema), register);
+router.post("/registration", validationMiddleware(schema), registrationController);
 
-router.post("/login", validation(schema), login);
+router.post("/login", validationMiddleware(schema), loginController);
 
-router.get("/logout", auth, logout);
+router.get("/logout", authMiddelware, logoutController);
 
-router.get("/current", auth, getCurrentUser);
+router.get("/current", authMiddelware, getCurrentUser);
 
-router.patch("/", auth, validation(subscriptionSchema), updateSubscription);
+router.patch("/", authMiddelware, validationMiddleware(subscriptionSchema), updateSubscription);
 
 router.patch(
   "/avatars",
-  auth,
+  authMiddelware,
   upload.single("avatar"),
-  jimpImageResizer,
   updateAvatar
 );
 

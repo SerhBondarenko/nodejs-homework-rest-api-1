@@ -1,33 +1,33 @@
 const express = require("express");
-const { auth } = require("../../middleware/authMiddleware");
+const { authMiddelware } = require("../../middleware/authMiddleware");
 const validation = require("../../middleware/validationMiddleware");
-const { schema, favoriteSchema } = require("../../service/schemas/contact");
+const { schema, favoriteSchema } = require("../../service/schemas/contactModel");
 const {
-  get,
-  getById,
-  create,
-  update,
-  updateFavorite,
-  remove,
+  getContactsController,
+  getByIdContactsController,
+  createContactsController,
+  updateContactsController,
+  updateFavoriteContactsController,
+  deleteContactsController,
 } = require("../../controller/contactsController");
 
 const router = express.Router();
 
-router.get("/", auth, get);
+router.get("/", authMiddelware, getContactsController);
 
-router.get("/:contactId", auth, getById);
+router.get("/:contactId", authMiddelware, getByIdContactsController);
 
-router.post("/", auth, validation(schema), create);
+router.post("/", authMiddelware, validation(schema), createContactsController);
 
-router.put("/:contactId", auth, validation(schema), update);
+router.put("/:contactId", authMiddelware, validation(schema), updateContactsController);
 
 router.patch(
   "/:contactId/favorite",
-  auth,
+  authMiddelware,
   validation(favoriteSchema),
-  updateFavorite
+  updateFavoriteContactsController
 );
 
-router.delete("/:contactId", auth, remove);
+router.delete("/:contactId", authMiddelware, deleteContactsController);
 
 module.exports = router;

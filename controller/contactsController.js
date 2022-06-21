@@ -1,6 +1,6 @@
 const service = require("../service/contactsService");
 
-const get = async (req, res, next) => {
+const getContactsController = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const { page = 1, limit = 5, favorite } = req.query;
@@ -11,7 +11,7 @@ const get = async (req, res, next) => {
   }
 };
 
-const getById = async (req, res, next) => {
+const getByIdContactsController = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const contact = await service.getContactById(contactId);
@@ -24,7 +24,7 @@ const getById = async (req, res, next) => {
   }
 };
 
-const create = async (req, res, next) => {
+const createContactsController = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const { name, email, phone } = req.body;
@@ -35,7 +35,7 @@ const create = async (req, res, next) => {
   }
 };
 
-const remove = async (req, res, next) => {
+const deleteContactsController = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const contact = await service.removeContact(contactId);
@@ -48,7 +48,7 @@ const remove = async (req, res, next) => {
   }
 };
 
-const update = async (req, res, next) => {
+const updateContactsController = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const { name, email, phone } = req.body;
@@ -63,7 +63,7 @@ const update = async (req, res, next) => {
   }
 };
 
-const updateFavorite = async (req, res, next) => {
+const updateFavoriteContactsController = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const { favorite } = req.body;
@@ -75,10 +75,10 @@ const updateFavorite = async (req, res, next) => {
 };
 
 module.exports = {
-  get,
-  getById,
-  create,
-  update,
-  updateFavorite,
-  remove,
+  getContactsController,
+  getByIdContactsController,
+  createContactsController,
+  updateContactsController,
+  updateFavoriteContactsController,
+  deleteContactsController,
 };

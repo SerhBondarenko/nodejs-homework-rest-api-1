@@ -1,6 +1,6 @@
 const passport = require("passport");
 
-const auth = (req, res, next) => {
+const authMiddelware = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, user) => {
     if (!user || err) {
       return res.status(401).json({
@@ -15,5 +15,5 @@ const auth = (req, res, next) => {
 };
 
 module.exports = {
-  auth,
+  authMiddelware,
 };

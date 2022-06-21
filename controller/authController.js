@@ -1,6 +1,6 @@
 const service = require("../service/authService");
 
-const register = async (req, res, next) => {
+const registrationController = async (req, res, next) => {
   const { email, password } = req.body;
   const userEmail = await service.getUser({ email });
   if (userEmail) {
@@ -22,7 +22,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+const loginController = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await service.getUser({ email });
   if (!user || !user.validPassword(password)) {
@@ -42,7 +42,7 @@ const login = async (req, res, next) => {
   });
 };
 
-const logout = async (req, res, next) => {
+const logoutController = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const user = await service.getUserById(_id);
@@ -50,7 +50,7 @@ const logout = async (req, res, next) => {
       return res.status(401).json({ message: "Not authorized" });
     }
     await service.removeToken(_id);
-    return res.status(204).json();
+    return res.status(204).json('No Content');
   } catch (error) {
     next(error);
   }
@@ -102,9 +102,9 @@ const updateAvatar = async (req, res, next) => {
 };
 
 module.exports = {
-  register,
-  login,
-  logout,
+  registrationController,
+  loginController,
+  logoutController,
   getCurrentUser,
   updateSubscription,
   updateAvatar,

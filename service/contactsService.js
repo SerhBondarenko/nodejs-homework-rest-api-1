@@ -1,4 +1,4 @@
-const { Contact } = require("./schemas/contact");
+const { Contact } = require("./schemas/contactModel");
 const mongoose = require("mongoose");
 
 const getContacts = async ({ _id, page, limit, favorite }) => {
